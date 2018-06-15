@@ -17,15 +17,15 @@ func (fr ForwardingResolver) Exchange(r *dns.Msg) (*dns.Msg, error) {
 		if !strings.Contains(server, ":") {
 			server = server + ":53"
 		}
-		go func() {
+		go func(dnsServer string) {
 			c := new(dns.Client)
-			msg, _, err := c.Exchange(r, server)
+			msg, _, err := c.Exchange(r, dnsServer)
 			if err == nil {
 				ch <- msg
 			} else {
 				fmt.Printf("%s\n", err)
 			}
-		}()
+		}(server)
 	}
 	select {
 	case msg := <-ch:
