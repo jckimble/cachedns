@@ -46,7 +46,7 @@ func main() {
 		Resolver: resolvers.FilteringResolver{
 			Filters: viper.GetStringMapString("filters"),
 			ForwardingResolver: resolvers.ForwardingResolver{
-				viper.GetStringSlice("resolvers"),
+				Servers: viper.GetStringSlice("resolvers"),
 			},
 		},
 	}

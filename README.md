@@ -14,7 +14,7 @@ A Caching DNS Server with domain filters and preloading blacklist
 go get -u gitlab.com/paranoidsecurity/cachedns
 ```
 
-## Examples
+## Configuration
 Config File must exist as `/etc/cdns.yaml` or `./cdns.yaml`
 ```yaml
 preload:
