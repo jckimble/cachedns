@@ -1,4 +1,4 @@
-# go-health
+# cachedns
 [![pipeline status](https://gitlab.com/paranoidsecurity/cachedns/badges/master/pipeline.svg)](https://gitlab.com/paranoidsecurity/cachedns/commits/master)
 
 A Caching DNS Server with domain filters and preloading blacklist
