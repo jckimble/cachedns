@@ -1,7 +1,12 @@
 image: golang:latest
 
+services:
+    - docker:dind
+
 variables:
   REPO_NAME: gitlab.com/paranoidsecurity/cachedns
+  CONTAINER_IMAGE: registry.gitlab.com/$CI_PROJECT_PATH
+  DOCKER_DRIVER: overlay2
 
 before_script:
   - mkdir -p $GOPATH/src/$(dirname $REPO_NAME)
@@ -12,6 +17,7 @@ before_script:
 stages:
     - test
     - build
+    - release
 
 format:
     stage: test
@@ -27,3 +33,21 @@ compile:
     artifacts:
       paths:
         - cachedns
+
+build:
+    image: docker:stable
+    stage: build
+    script:
+        - docker pull $CONTAINER_IMAGE:latest || true
+        - docker build --cache-from $CONTAINER_IMAGE:latest --tag $CONTAINER_IMAGE:$CI_BUILD_REF .
+        - docker push $CONTAINER_IMAGE:$CI_BUILD_REF
+
+release:
+    image: docker:stable
+    stage: release
+    script:
+        - docker pull $CONTAINER_IMAGE:$CI_BUILD_REF
+        - docker tag $CONTAINER_IMAGE:$CI_BUILD_REF $CONTAINER_IMAGE:latest
+        - docker push $CONTAINER_IMAGE:latest
+    only:
+        - master
