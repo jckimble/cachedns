@@ -13,9 +13,13 @@ import (
 
 func init() {
 	viper.SetDefault("preload", []string{})
-	viper.SetDefault("filters", map[string]string{})
-	viper.SetDefault("resolvers", []string{"208.67.220.220", "208.67.222.222"})
+	viper.SetDefault("resolvers.filtering.filters", map[string]string{})
+	viper.SetDefault("resolvers.forwarding.servers", []string{"208.67.220.220", "208.67.222.222"})
 	viper.SetDefault("port", ":5353")
+
+	viper.SetDefault("resolvers.filtering.enabled", true)
+	viper.SetDefault("resolvers.forwarding.enabled", true)
+	viper.SetDefault("resolvers.docker.enabled", false)
 
 	viper.AddConfigPath("/etc")
 	viper.AddConfigPath(".")
@@ -40,15 +44,27 @@ func main() {
 			<-timer.C
 		}
 	}()
+	var resolver cdns.Resolver
+	if viper.GetBool("resolvers.forwarding.enabled") {
+		resolver = resolvers.ForwardingResolver{
+			Servers: viper.GetStringSlice("resolvers.forwarding.servers"),
+		}
+	}
+	if viper.GetBool("resolvers.filtering.enabled") {
+		resolver = resolvers.FilteringResolver{
+			Filters:  viper.GetStringMapString("resolvers.filtering.filters"),
+			Resolver: resolver,
+		}
+	}
+	if viper.GetBool("resolvers.docker.enabled") {
+		resolver = resolvers.DockerContainerResolver{
+			Resolver: resolver,
+		}
+	}
 	cd := cdns.CacheDns{
-		Port:  viper.GetString("port"),
-		Cache: memcache,
-		Resolver: resolvers.FilteringResolver{
-			Filters: viper.GetStringMapString("filters"),
-			ForwardingResolver: resolvers.ForwardingResolver{
-				Servers: viper.GetStringSlice("resolvers"),
-			},
-		},
+		Port:     viper.GetString("port"),
+		Cache:    memcache,
+		Resolver: resolver,
 	}
 	cd.Run()
 }

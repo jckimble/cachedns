@@ -18,12 +18,19 @@ go get -u gitlab.com/paranoidsecurity/cachedns
 Config File must exist as `/etc/cdns.yaml` or `./cdns.yaml`
 ```yaml
 preload:
-    - http://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts&showintro=0&mimetype=plaintext
-filters:
-    ".*google.*": 127.0.0.1
+  - http://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts&showintro=0&mimetype=plaintext
 resolvers:
-    - 8.8.8.8
-    - 8.8.4.4
+  filtering:
+    enabled: true
+    filters:
+      ".*google.*": 127.0.0.1
+  forwarding:
+    enabled: false
+    resolvers:
+      - 8.8.8.8
+      - 8.8.4.4
+  docker:
+    enabled: true
 port: ":5353"
 ```
 

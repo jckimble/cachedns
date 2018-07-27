@@ -1,13 +1,15 @@
 package resolvers
 
 import (
+	"fmt"
 	"github.com/miekg/dns"
+	"gitlab.com/paranoidsecurity/cachedns/cdns"
 	"net"
 	"regexp"
 )
 
 type FilteringResolver struct {
-	ForwardingResolver
+	cdns.Resolver
 	Filters map[string]string
 }
 
@@ -30,5 +32,8 @@ func (fr FilteringResolver) Exchange(r *dns.Msg) (*dns.Msg, error) {
 			return m, nil
 		}
 	}
-	return fr.ForwardingResolver.Exchange(r)
+	if fr.Resolver != nil {
+		return fr.Resolver.Exchange(r)
+	}
+	return nil, fmt.Errorf("No Resolver For DNS")
 }

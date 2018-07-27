@@ -19,13 +19,15 @@ func (cd CacheDns) HandleRequest(w dns.ResponseWriter, r *dns.Msg) {
 	m := new(dns.Msg)
 	m.SetReply(r)
 	if err != nil {
-		msg, err := cd.Resolver.Exchange(r)
-		if err != nil {
-			log.Printf("Error: %s\n", err)
-			return
+		if cd.Resolver != nil {
+			msg, err := cd.Resolver.Exchange(r)
+			if err != nil {
+				log.Printf("Error: %s\n", err)
+				return
+			}
+			m.Answer = msg.Answer
+			cd.Cache.SaveAnswer(r.Question[0], msg.Answer, true)
 		}
-		m.Answer = msg.Answer
-		cd.Cache.SaveAnswer(r.Question[0], msg.Answer, true)
 	} else {
 		m.Authoritative = true
 		m.Answer = answer
