@@ -57,8 +57,12 @@ func main() {
 		}
 	}
 	if viper.GetBool("resolvers.docker.enabled") {
-		resolver = resolvers.DockerContainerResolver{
+		resolver = &resolvers.DockerContainerResolver{
 			Resolver: resolver,
+		}
+		err := resolver.(*resolvers.DockerContainerResolver).Watch()
+		if err != nil {
+			log.Fatalf("Error: %s", err)
 		}
 	}
 	cd := cdns.CacheDns{
