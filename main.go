@@ -1,9 +1,9 @@
 package main
 
 import (
-	"gitlab.com/paranoidsecurity/cachedns/cache"
-	"gitlab.com/paranoidsecurity/cachedns/cdns"
-	"gitlab.com/paranoidsecurity/cachedns/resolvers"
+	"github.com/jckimble/cachedns/cache"
+	"github.com/jckimble/cachedns/cdns"
+	"github.com/jckimble/cachedns/resolvers"
 
 	"github.com/spf13/viper"
 

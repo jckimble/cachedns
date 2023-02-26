@@ -2,7 +2,7 @@ package cache
 
 import (
 	"github.com/miekg/dns"
-	"gitlab.com/paranoidsecurity/cachedns/cdns"
+	"github.com/jckimble/cachedns/cdns"
 	"io/ioutil"
 	"log"
 	"net"

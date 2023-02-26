@@ -1,5 +1,5 @@
 # cachedns
-[![pipeline status](https://gitlab.com/paranoidsecurity/cachedns/badges/master/pipeline.svg)](https://gitlab.com/paranoidsecurity/cachedns/commits/master)
+![build status](https://github.com/jckimble/cachedns/actions/workflows/build.yml/badge.svg?branch=master)
 
 A Caching DNS Server with domain filters and preloading blacklist
 
@@ -11,7 +11,7 @@ A Caching DNS Server with domain filters and preloading blacklist
 
 ## Install
 ```sh
-go get -u gitlab.com/paranoidsecurity/cachedns
+go get -u github.com/jckimble/cachedns
 ```
 
 ## Configuration

@@ -3,7 +3,7 @@ package resolvers
 import (
 	"fmt"
 	"github.com/miekg/dns"
-	"gitlab.com/paranoidsecurity/cachedns/cdns"
+	"github.com/jckimble/cachedns/cdns"
 	"net"
 	"regexp"
 )

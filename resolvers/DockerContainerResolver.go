@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/fsouza/go-dockerclient"
 	"github.com/miekg/dns"
-	"gitlab.com/paranoidsecurity/cachedns/cdns"
+	"github.com/jckimble/cachedns/cdns"
 	"net"
 )
 
