@@ -1,11 +1,12 @@
 package cdns
 
 import (
-	"github.com/miekg/dns"
 	"log"
 	"os"
 	"os/signal"
 	"syscall"
+
+	"github.com/miekg/dns"
 )
 
 type CacheDns struct {
@@ -51,7 +52,7 @@ func (cd CacheDns) Run() {
 			log.Fatalf("Failed to set listener %s\n", err)
 		}
 	}()
-	sig := make(chan os.Signal)
+	sig := make(chan os.Signal, 1)
 	signal.Notify(sig, syscall.SIGINT, syscall.SIGTERM)
 	for {
 		select {

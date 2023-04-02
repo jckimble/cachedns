@@ -1,5 +1,5 @@
 {
-  "name": "Wishlist",
+  "name": "CacheDNS",
   "image": "mcr.microsoft.com/vscode/devcontainers/go:1.17",
   "customizations": {
     "vscode": {

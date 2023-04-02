@@ -3,8 +3,8 @@ package resolvers
 import (
 	"fmt"
 	"github.com/fsouza/go-dockerclient"
-	"github.com/miekg/dns"
 	"github.com/jckimble/cachedns/cdns"
+	"github.com/miekg/dns"
 	"net"
 )
 

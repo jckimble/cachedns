@@ -2,8 +2,8 @@ package resolvers
 
 import (
 	"fmt"
-	"github.com/miekg/dns"
 	"github.com/jckimble/cachedns/cdns"
+	"github.com/miekg/dns"
 	"net"
 	"regexp"
 )
