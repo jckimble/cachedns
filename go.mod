@@ -4,7 +4,7 @@ go 1.20
 
 require (
 	github.com/fsouza/go-dockerclient v1.9.7
-	github.com/miekg/dns v1.1.56
+	github.com/miekg/dns v1.1.57
 	github.com/patrickmn/go-cache v2.1.0+incompatible
 	github.com/spf13/viper v1.17.0
 )
